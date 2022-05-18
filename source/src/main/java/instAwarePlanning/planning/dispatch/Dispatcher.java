@@ -18,6 +18,8 @@ public class Dispatcher {
 	private static final String strPick = "pick";
 	private static final String strLeaveObject = "leaveObject";
 	private static final String strLocate = "locate";
+	private static final String strSpeak = "speak";
+	private static final String strSpeachRecog = "speech_recog";
 
 	private static final String pubMsgStart = "publish#D7.1#[{";
 	private static final String pubMsgEnd = "}]";
@@ -97,7 +99,14 @@ public class Dispatcher {
 			behParams.add(give_pitch);
 			
 			break;
+			
+		case strSpeak:
+			break;
+			
 		case strLeaveObject:
+			break;
+			
+		case strSpeachRecog:
 			break;
 
 		default:

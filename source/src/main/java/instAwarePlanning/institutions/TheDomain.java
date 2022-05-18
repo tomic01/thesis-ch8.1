@@ -38,7 +38,7 @@ public class TheDomain extends InstDomain {
 		Behavior bGive = new Behavior("give");
 		Behavior bPickUp = new Behavior("pick");
 		Behavior bSpeak = new Behavior("speak");
-		Behavior bSpeechRecog = new Behavior("speechRecog");
+		Behavior bSpeechRecog = new Behavior("speech_recog");
 
 		this.addBehavior(bMoveOnTrajectory);
 		this.addBehavior(bDescribe);

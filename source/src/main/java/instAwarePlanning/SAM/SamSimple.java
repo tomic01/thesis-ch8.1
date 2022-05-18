@@ -13,7 +13,8 @@ import instAwarePlanning.planning.InstPlanner;
 import instAwarePlanning.verify.Verifier;
 
 // SAM - Situation Awareness Module 
-// The goal of SAM is to receive sensors data and interpret/transform it to meaningful data for the planner
+// The goal of SAM is to update the states, on which planner can reason upon,
+// by receiving sensors data and interpreting it to meaningful states
 public class SamSimple implements IFeedbackObserver {
 
 	public static Map<String, String> stateVars = new HashMap<>();
@@ -23,6 +24,13 @@ public class SamSimple implements IFeedbackObserver {
 		stateVars.put("active_human01_pick", "none");
 		stateVars.put("active_human02_give", "none");
 		stateVars.put("active_human02_pick", "none");
+
+		// This is used for planning part:
+		// if e.g. 'leave object' is dispatched, and pepper does not have anything, then
+		// the action is skipped
+		stateVars.put("pepper01_has", "none");
+		stateVars.put("pepper02_has", "none");
+
 	}
 
 	private Map<String, Sensor> sensors = new HashMap<>();
@@ -46,7 +54,7 @@ public class SamSimple implements IFeedbackObserver {
 		if (feed[0].equals("subscribed") && feed[1].equals("D6.3")) {
 			System.out.println("[SamSimple] Correct feedback recieved...");
 			Map<String, String> params = FeedReader.getFeedParams(feed[2]);
-			params.forEach((key, value) -> System.out.println("Key: " + key + ": Value: " + value));
+			params.forEach((key, value) -> System.out.println("Key/Value: " + key + ":" + value));
 			updateStateVars(params);
 		}
 	}
@@ -81,6 +89,26 @@ public class SamSimple implements IFeedbackObserver {
 		}
 		// [ (id 2321) (robot pepper01) (type behRecog) (status running) (actionName
 		// give) (actionObject yellow) (actionAgent human01) (start true) ]
+
+		// Check if 'hasObject' is updated
+		String robot = params.get("robot");
+		String object = params.get("hasobject");
+		
+
+		if (object != null && !object.isEmpty()) {
+			switch (robot) {
+			case "pepper01":
+				System.out.println("[SAM] Updating: pepper01_has = " + object);
+				stateVars.put("pepper01_has", object);
+				break;
+			case "pepper02":
+				System.out.println("[SAM] Updating: pepper02_has = " + object);
+				stateVars.put("pepper02_has", object);
+				break;
+			default:
+				System.out.println("Unknown agent name");
+			}
+		}
 
 	}
 

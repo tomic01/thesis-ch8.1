@@ -9,26 +9,35 @@
 
 (Resource rPepper01 1)
 (Resource rPepper02 1)
+(Resource rHuman01 1)
 
 ## Human01 ##
 
 (SimpleOperator
  (Head human01::give(sponge))
+ (RequiredState req1 used::human01())
+ (Constraint Equals(Head,req1))
  (Constraint Duration[3000,60000](Head))
 )
 
 (SimpleOperator
  (Head human01::give(battery))
+ (RequiredState req1 used::human01())
+ (Constraint Equals(Head,req1))
  (Constraint Duration[3000,60000](Head))
 )
 
 (SimpleOperator
  (Head human01::pick(sponge))
+ (RequiredState req1 used::human01())
+ (Constraint Equals(Head,req1))
  (Constraint Duration[3000,60000](Head))
 )
 
 (SimpleOperator
  (Head human01::pick(battery))
+ (RequiredState req1 used::human01())
+ (Constraint Equals(Head,req1))
  (Constraint Duration[3000,60000](Head))
 )
 
@@ -180,4 +189,9 @@
 (SimpleOperator
  (Head used::pepper02())
  (RequiredResource rPepper02(1))
+)
+
+(SimpleOperator
+ (Head used::human01())
+ (RequiredResource rHuman01(1))
 )

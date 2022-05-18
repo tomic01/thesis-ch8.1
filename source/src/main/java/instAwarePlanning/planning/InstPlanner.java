@@ -25,6 +25,7 @@ import instAwarePlanning.institutions.TheDomain;
 import instAwarePlanning.institutions.Exchange.ExchangeGroundingTwoRobots;
 import instAwarePlanning.institutions.Exchange.ExchangeGroundingHumanRobot;
 import instAwarePlanning.institutions.Exchange.ExchangeInstitution;
+import instAwarePlanning.institutions.Trade.TradeGroundingGateKeeper;
 import instAwarePlanning.institutions.Trade.TradeGroundingRobotHuman;
 import instAwarePlanning.institutions.Trade.TradeGroundingTwoRobots;
 import instAwarePlanning.institutions.Trade.TradeInstitution;
@@ -34,9 +35,9 @@ import instAwarePlanning.translator.PlanningDomaniGenerator;
 public class InstPlanner {
 
 	private static final String domainDir = "domains/";
-	// private static final String robotsDomainOriginal = "robotsKnowledge.ddl";
-	//private static final String robotsDomainOriginal = "humanRobotKnowledge.ddl";
-	private static final String robotsDomainOriginal = "humanRobotKnowledge3.ddl";
+	// private static final String robotsDomainOriginal = "robotRobotKnowledge.ddl";
+	// private static final String robotsDomainOriginal = "humanRobotKnowledge.ddl";
+	private static final String robotsDomainOriginal = "mbotsKnowledge.ddl";
 
 	public static ConstraintNetworkAnimator animator;
 	public static DispatchManager dispatchMngr;
@@ -53,8 +54,9 @@ public class InstPlanner {
 		// Create Institutions
 		Institution inst = new TradeInstitution();
 		TheDomain theDomain = new TheDomain();
-		Grounding grounding = new TradeGroundingRobotHuman(inst, theDomain);
-		//Grounding grounding = new TradeGroundingTwoRobots(inst, theDomain);
+		// Grounding grounding = new TradeGroundingRobotHuman(inst, theDomain);
+		// Grounding grounding = new TradeGroundingTwoRobots(inst, theDomain);
+		Grounding grounding = new TradeGroundingGateKeeper(inst, theDomain);
 
 		// Translate Inst. Spec. into a domain file
 		PlanningDomaniGenerator ddlInstKnowledge = new PlanningDomaniGenerator(inst, theDomain, grounding);
@@ -89,8 +91,8 @@ public class InstPlanner {
 		SamSimple sam = new SamSimple(comm);
 
 		// Dispatching
-		//dispatchMngr = new DispatchManager(ddlKnowledge.getActuators(), comm, testingMode);
-		//dispatchMngr.dispatcherSetup();
+		dispatchMngr = new DispatchManager(ddlKnowledge.getActuators(), comm, testingMode);
+		dispatchMngr.dispatcherSetup();
 
 		// Display
 		displayTimelineAnimator(planner, ddlKnowledge);

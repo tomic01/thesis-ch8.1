@@ -82,6 +82,7 @@ public class DispatchManager extends DispatchAbstract {
 					}
 				}
 				
+				System.out.println("****DISPATCHING********");
 				// String uniqueName = agentName.toLowerCase() + behaviorName.toLowerCase();
 				String uid = createUID(msgInfo.agentName, msgInfo.behaviorName, msgInfo.params);
 				ID_Activity_Map.put(uid, activity);
