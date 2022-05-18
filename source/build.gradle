@@ -1,0 +1,27 @@
+['java', 'eclipse', 'maven', 'application', 'signing'].each {
+    apply plugin : it
+}
+
+mainClassName = 'instAwarePlanning.planning.InstPlanner'
+
+//Repos for dependencies
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  //It's all in Maven Central
+  compile 'org.metacsp:meta-csp-framework:1.3.4'
+  compile 'org.ow2.sat4j:org.ow2.sat4j.sat:2.3.4'
+  compile 'net.sf.jung:jung2:2.0.1'
+  compile 'net.sf.jung:jung-graph-impl:2.0.1'
+  compile 'net.sf.jung:jung-algorithms:2.0.1'
+  compile 'net.sf.jung:jung-visualization:2.0.1'
+  compile 'org.prefuse:prefuse:beta-20071021'
+  compile 'jfree:jfreechart:1.0.13'
+  compile 'junit:junit:4.8.1'
+  compile 'com.googlecode.aima-java:aima-core:0.10.5'
+  compile 'com.vividsolutions:jts:1.13'
+  compile 'de.erichseifert.vectorgraphics2d:VectorGraphics2D:0.12'
+  compile 'org.mini2Dx:universal-tween-engine:6.3.3'
+}
